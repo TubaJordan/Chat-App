@@ -26,10 +26,10 @@ const Start = ({ navigation }) => {
                         <TextInput style={styles.textInput} value={name} onChangeText={setName} placeholder="Your Name" placeholderTextColor="#757083" />
                         <Text style={styles.textColorSelector}>Choose Background Color:</Text>
                         <View style={styles.colorSelector}>
-                            <TouchableOpacity style={[styles.circle, color === userBackgroundColors.a && styles.selectedCircle, { backgroundColor: userBackgroundColors.a },]} onPress={() => setColor(userBackgroundColors.a)}></TouchableOpacity>
-                            <TouchableOpacity style={[styles.circle, color === userBackgroundColors.b && styles.selectedCircle, { backgroundColor: userBackgroundColors.b },]} onPress={() => setColor(userBackgroundColors.b)}></TouchableOpacity>
-                            <TouchableOpacity style={[styles.circle, color === userBackgroundColors.c && styles.selectedCircle, { backgroundColor: userBackgroundColors.c },]} onPress={() => setColor(userBackgroundColors.c)}></TouchableOpacity>
-                            <TouchableOpacity style={[styles.circle, color === userBackgroundColors.d && styles.selectedCircle, { backgroundColor: userBackgroundColors.d },]} onPress={() => setColor(userBackgroundColors.d)}></TouchableOpacity>
+                            <TouchableOpacity style={[styles.circle, color === userBackgroundColors.a && styles.selectedCircle1, { backgroundColor: userBackgroundColors.a },]} onPress={() => setColor(userBackgroundColors.a)}></TouchableOpacity>
+                            <TouchableOpacity style={[styles.circle, color === userBackgroundColors.b && styles.selectedCircle2, { backgroundColor: userBackgroundColors.b },]} onPress={() => setColor(userBackgroundColors.b)}></TouchableOpacity>
+                            <TouchableOpacity style={[styles.circle, color === userBackgroundColors.c && styles.selectedCircle3, { backgroundColor: userBackgroundColors.c },]} onPress={() => setColor(userBackgroundColors.c)}></TouchableOpacity>
+                            <TouchableOpacity style={[styles.circle, color === userBackgroundColors.d && styles.selectedCircle4, { backgroundColor: userBackgroundColors.d },]} onPress={() => setColor(userBackgroundColors.d)}></TouchableOpacity>
                         </View>
                     </KeyboardAvoidingView>
                     <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Screen2", { name: name, color: color })}>
@@ -57,10 +57,11 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         alignSelf: 'center',
         flex: 1,
+        paddingTop: 55,
     },
     inputContainer: {
         backgroundColor: '#FFFFFF',
-        padding: '6%',
+        paddingHorizontal: "6%",
         paddingBottom: 20,
     },
     textInput: {
@@ -68,10 +69,11 @@ const styles = StyleSheet.create({
         fontWeight: '300',
         color: '#757083',
         padding: 15,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#757083',
-        marginTop: 15,
-        marginBottom: 15,
+        marginTop: 20,
+        marginBottom: 25,
+        marginHorizontal: -20,
     },
     textColorSelector: {
         fontSize: 16,
@@ -82,25 +84,39 @@ const styles = StyleSheet.create({
     colorSelector: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 20,
+        marginBottom: 40,
     },
     circle: {
         height: 50,
         width: 50,
         borderRadius: 25,
     },
-    selectedCircle: {
-        borderWidth: 2,
-        borderColor: '#FF0000',
+    selectedCircle1: {
+        borderWidth: 5,
+        borderColor: "#445544",
+    },
+    selectedCircle2: {
+        borderWidth: 5,
+        borderColor: "#7A6B89",
+    },
+    selectedCircle3: {
+        borderWidth: 5,
+        borderColor: "#BDC3C7",
+    },
+    selectedCircle4: {
+        borderWidth: 5,
+        borderColor: "#D0D9B2",
     },
     button: {
         backgroundColor: '#757083',
-        padding: 10,
+        padding: 15,
+        position: "fixed",
     },
     buttonText: {
         color: '#FFFFFF',
-        fontWeight: 'bold',
+        fontWeight: '600',
         textAlign: 'center',
+        fontSize: 16,
     },
 });
 
