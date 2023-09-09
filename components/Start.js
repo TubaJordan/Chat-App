@@ -1,8 +1,7 @@
-import { StyleSheet, View, Text, Button, TextInput, ImageBackground, TouchableOpacity, ScrollView, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, View, Text, Button, TextInput, ImageBackground, TouchableOpacity, ScrollView, KeyboardAvoidingView, Image } from "react-native";
 import { useState } from "react";
 
 const image = require("../assets/Background-Image.png");
-
 const userBackgroundColors = {
     a: "#090C08",
     b: "#474056",
@@ -10,12 +9,9 @@ const userBackgroundColors = {
     d: "#B9C6AE",
 };
 
-
 const Start = ({ navigation }) => {
-
     const [name, setName] = useState("");
     const [color, setColor] = useState(userBackgroundColors.a);
-
 
     return (
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
@@ -23,7 +19,10 @@ const Start = ({ navigation }) => {
                 <Text style={styles.appTitle}>Chat App</Text>
                 <View style={styles.inputContainer}>
                     <KeyboardAvoidingView style={styles.inputContainer} behavior="padding" enabled>
-                        <TextInput style={styles.textInput} value={name} onChangeText={setName} placeholder="Your Name" placeholderTextColor="#757083" />
+                        <View style={styles.sectionStyle}>
+                            <Image styles={styles.imageStyle} source={require("../assets/icon.png")} />
+                            <TextInput style={styles.textInput} value={name} onChangeText={setName} placeholder="Your Name" placeholderTextColor="#757083" />
+                        </View>
                         <Text style={styles.textColorSelector}>Choose Background Color:</Text>
                         <View style={styles.colorSelector}>
                             <TouchableOpacity style={[styles.circle, color === userBackgroundColors.a && styles.selectedCircle1, { backgroundColor: userBackgroundColors.a },]} onPress={() => setColor(userBackgroundColors.a)}></TouchableOpacity>
@@ -64,22 +63,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: "6%",
         paddingBottom: 20,
     },
-    textInput: {
-        fontSize: 16,
-        fontWeight: '300',
-        color: '#757083',
-        padding: 15,
-        borderWidth: 2,
-        borderColor: '#757083',
-        marginTop: 20,
-        marginBottom: 25,
-        marginHorizontal: -20,
-    },
     textColorSelector: {
         fontSize: 16,
         fontWeight: '300',
-        color: '#8A95A5',
-        marginBottom: 10,
+        color: '#757083',
+        opacity: 1,
+        marginBottom: 15,
     },
     colorSelector: {
         flexDirection: 'row',
@@ -117,6 +106,33 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textAlign: 'center',
         fontSize: 16,
+    },
+    textInput: {
+        flex: 1,
+        padding: 15,
+        fontSize: 16,
+        fontWeight: "300",
+        color: "#757083",
+        opacity: 0.5
+    },
+    sectionStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 15,
+        borderWidth: 2,
+        borderColor: "#757083",
+        borderRadius: 2,
+        marginTop: 20,
+        marginBottom: 25,
+        marginHorizontal: -20,
+    },
+    imageStyle: {
+        padding: 10,
+        margin: 5,
+        height: 25,
+        width: 25,
+        resizeMode: 'stretch',
+        alignItems: 'center',
     },
 });
 
