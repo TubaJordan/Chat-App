@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Button, TextInput, ImageBackground, TouchableOpacity, ScrollView, KeyboardAvoidingView, Image } from "react-native";
+import { StyleSheet, View, Text, TextInput, ImageBackground, TouchableOpacity, ScrollView, KeyboardAvoidingView, Image } from "react-native";
 import { useState } from "react";
 
 const image = require("../assets/Background-Image.png");
@@ -31,11 +31,13 @@ const Start = ({ navigation }) => {
                             <TouchableOpacity style={[styles.circle, color === userBackgroundColors.d && styles.selectedCircle4, { backgroundColor: userBackgroundColors.d },]} onPress={() => setColor(userBackgroundColors.d)}></TouchableOpacity>
                         </View>
                     </KeyboardAvoidingView>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Screen2", { name: name, color: color })}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Chat", { name: name, color: color })}>
                         <Text style={styles.buttonText}>Start Chatting</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+            {Platform.OS === "android" ? <KeyboardAvoidingView behavior="height" /> : null}
+            {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null}
         </ImageBackground>
     );
 }
