@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TextInput, ImageBackground, TouchableOpacity, ScrollView, KeyboardAvoidingView, Image } from "react-native";
+import { StyleSheet, View, Text, TextInput, ImageBackground, TouchableOpacity, ScrollView, KeyboardAvoidingView, Image, Platform } from "react-native";
 import { useState } from "react";
 
 const image = require("../assets/Background-Image.png");

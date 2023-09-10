@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
 
 const Chat = ({ route, navigation }) => {
