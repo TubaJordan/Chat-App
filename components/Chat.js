@@ -1,15 +1,16 @@
+import { addDoc, collection, orderBy, query, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { Bubble, GiftedChat } from "react-native-gifted-chat";
 
-const Chat = ({ route, navigation }) => {
+const Chat = ({ route, navigation, db }) => {
 
     const [messages, setMessages] = useState([]);
 
-    const { name, color } = route.params;
+    const { name, color, userID } = route.params;
 
     const onSend = (newMessages) => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
+        addDoc(collection(db, "messages"), newMessages[0])
     }
 
     const renderBubble = (props) => {
@@ -27,25 +28,26 @@ const Chat = ({ route, navigation }) => {
     }
 
     useEffect(() => {
+        const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+        const unsubMessage = onSnapshot(q, (documentsSnapshot) => {
+            let msgLists = [];
+            documentsSnapshot.forEach(doc => {
+                msgLists.push({
+                    id: doc.id,
+                    ...doc.data(),
+                    createdAt: new Date(doc.data().createdAt.toMillis()),
+                });
+            });
+            setMessages(msgLists);
+        });
+
+        return () => {
+            if (unsubMessage) unsubMessage();
+        }
+    }, []);
+
+    useEffect(() => {
         navigation.setOptions({ title: name });
-        setMessages([
-            {
-                _id: 1,
-                text: `Hey ${name}! Welcome to the chat.`,
-                createdAt: new Date(),
-                use: {
-                    _id: 2,
-                    name: "React Native",
-                    avatar: "https://dummyimage.com/140x140/000/fff",
-                },
-            },
-            {
-                _id: 2,
-                text: `${name} has entered the chat!`,
-                createdAt: new Date(),
-                system: true,
-            },
-        ]);
     }, []);
 
     return (
@@ -55,11 +57,11 @@ const Chat = ({ route, navigation }) => {
                 renderBubble={renderBubble}
                 onSend={messages => onSend(messages)}
                 user={{
-                    _id: 1
+                    _id: userID, name
                 }}
             />
             {Platform.OS === "android" ? <KeyboardAvoidingView behavior="height" /> : null}
-            {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null}
+            {/* {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null} */}
         </View>
     );
 }
