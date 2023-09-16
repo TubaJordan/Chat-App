@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, initializeFirestore } from "firebase/firestore";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,8 +22,8 @@ const App = () => {
 
   const app = initializeApp(firebaseConfig);
 
-  const db = getFirestore(app);
-
+  // const db = getFirestore(app);
+  const db = initializeFirestore(app, { experimentalAutoDetectLongPolling: true }) //work around for android emulator
 
 
 
