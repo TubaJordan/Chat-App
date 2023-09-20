@@ -1,9 +1,10 @@
-import { addDoc, collection, orderBy, query, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, orderBy, query, onSnapshot, where, DocumentSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
-import { Bubble, GiftedChat } from "react-native-gifted-chat";
+import { StyleSheet, View, KeyboardAvoidingView, Platform, Alert } from "react-native";
+import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Chat = ({ route, navigation, db }) => {
+const Chat = ({ route, navigation, db, isConnected }) => {
 
     const [messages, setMessages] = useState([]);
 
@@ -27,24 +28,52 @@ const Chat = ({ route, navigation, db }) => {
         />
     }
 
+    let unsubMessage;
     useEffect(() => {
-        const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
-        const unsubMessage = onSnapshot(q, (documentsSnapshot) => {
-            let msgLists = [];
-            documentsSnapshot.forEach(doc => {
-                msgLists.push({
-                    id: doc.id,
-                    ...doc.data(),
-                    createdAt: new Date(doc.data().createdAt.toMillis()),
+
+        if (isConnected === true) {
+
+            if (unsubMessage) unsubMessage();
+            unsubMessage = null;
+
+            const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+            unsubMessage = onSnapshot(q, (documentsSnapshot) => {
+                let msgLists = [];
+                documentsSnapshot.forEach(doc => {
+                    msgLists.push({
+                        id: doc.id,
+                        ...doc.data(),
+                        createdAt: new Date(doc.data().createdAt.toMillis()),
+                    });
                 });
+                cacheMessages(msgLists);
+                setMessages(msgLists);
             });
-            setMessages(msgLists);
-        });
+        } else loadCachedMsg();
 
         return () => {
             if (unsubMessage) unsubMessage();
         }
-    }, []);
+    }, [isConnected]);
+
+    const cacheMessages = async (msgToCache) => {
+        try {
+            await AsyncStorage.setItem("messages_list", JSON.stringify(msgToCache));
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    const loadCachedMsg = async () => {
+        const cachedMsg = await AsyncStorage.getItem("messages_list") || [];
+        setMessages(JSON.parse(cachedMsg));
+    }
+
+    const renderInputToolbar = (props) => {
+        if (isConnected) return <InputToolbar {...props} />;
+        else return null;
+    }
+
 
     useEffect(() => {
         navigation.setOptions({ title: name });
@@ -55,6 +84,7 @@ const Chat = ({ route, navigation, db }) => {
             <GiftedChat
                 messages={messages}
                 renderBubble={renderBubble}
+                renderInputToolbar={renderInputToolbar}
                 onSend={messages => onSend(messages)}
                 user={{
                     _id: userID, name
