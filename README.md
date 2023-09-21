@@ -12,8 +12,8 @@ This is a mobile chat application developed using React Native. It allows users 
 
 ## Screenshots
 
-![Start Screen](assets/StartScreen.png | width=100px)
-![Chat Screen](assets/ChatScreen.png | width=100px)
+<img src="https://github.com/TubaJordan/chat-app/blob/main/assets/StartScreen.png" width="150">
+<img src="https://github.com/TubaJordan/chat-app/blob/main/assets/ChatScreen.png" width="150">
 
 ## Prerequisites
 
