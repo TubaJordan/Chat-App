@@ -1,13 +1,14 @@
-import { addDoc, collection, orderBy, query, onSnapshot, where, DocumentSnapshot } from "firebase/firestore";
+import { addDoc, collection, orderBy, query, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { StyleSheet, View, KeyboardAvoidingView, Platform, Alert } from "react-native";
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from "react-native";
 import { Bubble, GiftedChat, InputToolbar } from "react-native-gifted-chat";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import CustomActions from "./CustomActions";
+import MapView from "react-native-maps";
 
-const Chat = ({ route, navigation, db, isConnected }) => {
+const Chat = ({ route, navigation, db, isConnected, storage }) => {
 
     const [messages, setMessages] = useState([]);
-
     const { name, color, userID } = route.params;
 
     const onSend = (newMessages) => {
@@ -74,10 +75,36 @@ const Chat = ({ route, navigation, db, isConnected }) => {
         else return null;
     }
 
-
     useEffect(() => {
         navigation.setOptions({ title: name });
     }, []);
+
+    const renderCustomActions = (props) => {
+        return <CustomActions userID={userID} storage={storage} {...props} />
+    };
+
+    const renderCustomView = (props) => {
+        const { currentMessage } = props;
+        if (currentMessage.location) {
+            return (
+                <MapView
+                    style={{
+                        width: 250,
+                        height: 100,
+                        borderRadius: 13,
+                        margin: 8,
+                    }}
+                    region={{
+                        latitude: currentMessage.location.latitude,
+                        longitude: currentMessage.location.longitude,
+                        latitudeDelta: 0.0922,
+                        longitude: 0.0421,
+                    }}
+                />
+            );
+        }
+        return null;
+    }
 
     return (
         <View style={[styles.container, { backgroundColor: color }]}>
@@ -86,12 +113,13 @@ const Chat = ({ route, navigation, db, isConnected }) => {
                 renderBubble={renderBubble}
                 renderInputToolbar={renderInputToolbar}
                 onSend={messages => onSend(messages)}
+                renderActions={renderCustomActions}
+                renderCustomView={renderCustomView}
                 user={{
                     _id: userID, name
                 }}
             />
             {Platform.OS === "android" ? <KeyboardAvoidingView behavior="height" /> : null}
-            {/* {Platform.OS === "ios" ? <KeyboardAvoidingView behavior="padding" /> : null} */}
         </View>
     );
 }

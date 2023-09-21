@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         alignSelf: 'center',
         flex: 1,
-        paddingTop: 55,
+        paddingTop: 25,
     },
     inputContainer: {
         backgroundColor: '#FFFFFF',
