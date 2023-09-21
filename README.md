@@ -12,8 +12,8 @@ This is a mobile chat application developed using React Native. It allows users 
 
 ## Screenshots
 
-![Start Screen](assets/StartScreen.png)
-![Chat Screen](assets/ChatScreen.png)
+![Start Screen](assets/StartScreen.png | width=100)
+![Chat Screen](assets/ChatScreen.png | width=100)
 
 ## Prerequisites
 
