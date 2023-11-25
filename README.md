@@ -1,6 +1,20 @@
 # Chat App
 
-This is a mobile chat application developed using React Native. It allows users to engage in text conversations, share images, capture photos, and send their current location.
+<img src="https://github.com/TubaJordan/Portfolio/blob/main/images/ChatApp-Display.png">
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Built With](#built-with)
+- [Database Used](#database-used)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation and Setup](#installation-and-setup-instructions)
+
+## Overview
+
+This mobile chat application, developed using React Native, is designed for users to engage in text conversations, share images, capture photos, and send their current location. It provides a seamless chat experience with both online and offline capabilities, using Google Firestore Database for storage.
 
 ## Key Features
 
@@ -10,22 +24,28 @@ This is a mobile chat application developed using React Native. It allows users 
 - **Location Sharing:** Users have the ability to share their geographic location with others.
 - **Online & Offline Storage:** Messages, photots, and geolocations are stored in Google Firestore Database that are cached if the app loses connection to the internet.
 
-## Screenshots
+## Built With
 
-<img src="https://github.com/TubaJordan/chat-app/blob/main/assets/StartScreen.png" width="250">  <img src="https://github.com/TubaJordan/chat-app/blob/main/assets/ChatScreen.png" width="250">
+- [**React Native**](https://reactnative.dev/) - For mobile app development.
+- [**Expo**](https://expo.dev/) - To streamline the development process.
 
-## Prerequisites
+## Database Used
 
-Before setting up the application, ensure you have the following:
+- [**Google Firestore Database**](https://firebase.google.com/products/firestore) - For online and offline data storage.
+
+## Getting Started
+
+### Prerequisites
+
 - Node.js
 - Firebase Account
 - Expo
-- Mobile OS Emulator (such as Android Studio) and/or
-- Personal mobile device (smartphone, tablet, etc.)
+- Mobile OS Emulator (e.g., Android Studio) or a Personal Mobile Device
 
-## Installation and Setup Instructions
+### Installation and Setup Instructions
 
-### General Steps
+#### General Steps
+
 1. Clone the repository.
 2. Open the terminal and navigate to your project directory.
 3. Run 'npm install 16.19.0' to install the required base dependencies.
@@ -39,9 +59,9 @@ Before setting up the application, ensure you have the following:
 11. In your terminal, run 'expo login' and complete the login process.
 12. For future use, run 'npx expo start' in the terminal.
 
-### Firebase Setup
+#### Firebase Setup
 
-1. Visit 'https://firebase.google.com/'.
+1. Visit '<https://firebase.google.com/>'.
 2. Access the console by clicking 'Go To Console' in the top right corner.
 3. Create a new project.
 4. Once inside the project, go to 'Build -> Firestore Database' on the left side of the screen under product categories.
@@ -52,17 +72,17 @@ Before setting up the application, ensure you have the following:
 9. Choose a nickname (Firebase Hosting setup is optional) and follow the prompts.
 10. Copy the code section starting with 'const firebaseConfig =' and replace the existing code in App.js with it.
 
-### Android Studio Setup
+#### Android Studio Setup
 
-1. Visit 'https://developer.android.com/studio'.
+1. Visit '<https://developer.android.com/studio>'.
 2. Download Android Studio Giraffe.
 3. Follow the installation process.
 4. After installation, launch Android Studio, and go to 'More Actions -> Virtual Device Manager'.
 5. Set up and install your preferred virtual device (for this project, the Pixel 7 Pro was used).
 
-### Expo Setup
+#### Expo Setup
 
-1. Visit 'https://expo.dev/'.
+1. Visit '<https://expo.dev/>'.
 2. Create your Expo account.
 3. Open the virtual device you set up with Android Studio.
 4. Go to the Google Play Store, install Expo Go, and log in.
